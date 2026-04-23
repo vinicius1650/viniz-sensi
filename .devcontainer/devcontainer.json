@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Viniz Sensi Pro</title>
+
+<style>
+body {
+  background: #0d0d0d;
+  color: white;
+  font-family: Arial;
+  text-align: center;
+}
+
+.box {
+  background: #1a1a1a;
+  padding: 20px;
+  border-radius: 15px;
+  width: 320px;
+  margin: auto;
+  margin-top: 40px;
+}
+
+button {
+  padding: 10px;
+  margin: 5px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  background: white;
+  color: black;
+}
+
+input[type=range] {
+  width: 100%;
+}
+
+.result {
+  margin-top: 15px;
+  font-weight: bold;
+}
+</style>
+</head>
+
+<body>
+
+<h2>🎯 Viniz Sensi & Auxílio</h2>
+
+<div class="box">
+
+<p>Sensibilidade Base</p>
+<input type="range" min="0" max="100" id="sensi">
+
+<p>Controle de Recuo (manual)</p>
+<input type="range" min="0" max="100" id="recuo">
+
+<p>Precisão</p>
+<input type="range" min="0" max="100" id="prec">
+
+<br>
+
+<label><input type="checkbox" id="aux1"> Auxílio de estabilidade</label><br>
+<label><input type="checkbox" id="aux2"> Ajuste fino de mira</label><br>
+<label><input type="checkbox" id="aux3"> Redução de tremida (visual)</label>
+
+<br><br>
+
+<button onclick="gerar()">Gerar Setup</button>
+
+<div class="result" id="resultado"></div>
+
+</div>
+
+<script>
+function gerar() {
+
+  let s = document.getElementById("sensi").value;
+  let r = document.getElementById("recuo").value;
+  let p = document.getElementById("prec").value;
+
+  let auxBonus = 0;
+
+  if(document.getElementById("aux1").checked) auxBonus += 5;
+  if(document.getElementById("aux2").checked) auxBonus += 5;
+  if(document.getElementById("aux3").checked) auxBonus += 5;
+
+  let final = Math.round((s*0.5) + (p*0.4) - (r*0.2) + auxBonus);
+
+  document.getElementById("resultado").innerHTML =
+    "🔥 Sua Sensi Ideal: " + final +
+    "<br>🎯 ADS: " + Math.round(final * 0.8) +
+    "<br>🔫 Mira Fina: " + Math.round(final * 0.6);
+}
+</script>
+
+</body>
+</html>
